@@ -24,6 +24,7 @@ class Main extends React.Component {
         firstname: data[i].firstname,
         lastname: data[i].lastname,
         level: data[i].level,
+        location: data[i].location,
       })
     }
     console.log(service)
