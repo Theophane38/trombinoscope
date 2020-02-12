@@ -6,22 +6,8 @@
   padding: 40px;
 }
 
-.Level2 {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 30px;
-}
-
-.PeopleLvl2 {
-  padding: 15px;
-}
-
-.Level3 {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 30px;
-}
-
-.PeopleLvl3 {
-  padding: 15px;
+.serviceContainer {
+  width: 200px;
+  display: inline-block;
+  vertical-align: top;
 }
