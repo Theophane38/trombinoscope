@@ -1,13 +1,94 @@
+body {
+  background-color: #333;
+}
 .Main {
+  background-color: #333;
+  width: 20000px;
+}
+
+h2 {
+  color: #fff;
+  font-size: 80px;
+  margin-top: 150px;
   text-align: center;
 }
 
-.Level1 {
-  padding: 40px;
+.people {
+  margin: 30px;;
+  width: 400px;
+  border-top: 5px blue solid;
+  background-color: rgba(255,255,255,0.8);
+  text-align: center;
+  vertical-align: top;
 }
-
+.addPeople {
+  display: inline-block;
+  width: 390px;
+  height: 134px;
+  border: 5px #666 dashed;
+  margin: 30px;
+  margin-top: 30px;
+  color: #666;
+  font-size: 120px;
+  line-height: 120px;
+  text-align: center;
+}
+.addPeople:hover {
+  color: #ccc;
+  border-color: #ccc;
+  transition: 0.5s;
+  cursor: pointer;
+}
+.manager {
+  margin: auto;
+  border-top: 5px red solid;
+}
+.level2 {
+}
+.level2 .people {
+  display: inline-block;
+  border-top: 5px blue solid;
+}
+.level3 {
+  margin-top: 150px;
+}
+.level3 .people {
+  display: inline-block;
+  border-top: 5px aqua solid;
+}
+.PeopleLvl2 {
+  width: 400px;
+  border: 2px solid #222;
+  border-top: 5px red solid;
+  background-color: rgba(255,255,255,0.8);
+}
+.PeopleLvl3 {
+  width: 400px;
+  border: 2px solid #222;
+  border-top: 5px red solid;
+  background-color: rgba(255,255,255,0.8);
+}
+.profilPictureContainer {
+  width: 150px;
+  display: inline-block;
+  padding: 18px 0;
+  line-height: 0;
+}
+img {
+  width: 100px;
+  margin: auto;
+  border-radius: 50px;
+}
+.profilInfosContainer {
+  width: 250px;
+  vertical-align: top;
+  display: inline-block;
+  margin: 22px 0px;
+  text-align: left;
+}
 .serviceContainer {
-  width: 200px;
+  margin: 0 75px;
+  width: 1840px;
   display: inline-block;
   vertical-align: top;
 }
