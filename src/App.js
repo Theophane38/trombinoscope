@@ -3,6 +3,9 @@ import people from './assets/datas/people.json';
 import maxime from './assets/images/maxime.jpg'
 import './App.css';
 import { MapInteractionCSS } from 'react-map-interaction';
+import People from './components/People.js'
+import Popup from "reactjs-popup";
+
 
 class Main extends React.Component {
 
@@ -40,15 +43,7 @@ class Main extends React.Component {
     for (let i = 0; i < data.length; i++) {
       if (data[i].level === 1) {
         tabLvl1.push (
-          <div className= 'manager people'>
-           <div className="profilPictureContainer">
-                <img src={maxime}/>
-              </div>
-              <div className="profilInfosContainer">
-                <p>{data[i].lastname} {data[i].firstname}</p>
-                <p>{data[i].location}</p>
-              </div>
-          </div>
+          <People services={data[i]} />
         )
       }
     }
@@ -64,27 +59,11 @@ class Main extends React.Component {
       for (let j = 0; j < services[i].length; j++){
         if (services[i][j].level === 2){
           peopleLevel2.push(
-            <div className= 'people'>
-              <div className="profilPictureContainer">
-                <img src={maxime}/>
-              </div>
-              <div className="profilInfosContainer">
-                <p>{services[i][j].lastname} {services[i][j].firstname}</p>
-                <p>{services[i][j].location}</p>
-              </div>
-            </div>
+            <People services={services[i][j]} />
           )
         } else if (services[i][j].level === 3){
           peopleLevel3.push(
-            <div className= 'people'>
-              <div className="profilPictureContainer">
-                <img src={maxime}/>
-              </div>
-              <div className="profilInfosContainer">
-                <p>{services[i][j].lastname} {services[i][j].firstname}</p>
-                <p>{services[i][j].location}</p>
-              </div>
-            </div>
+            <People services={services[i][j]} />
           )
         }
       }
@@ -126,6 +105,50 @@ class Main extends React.Component {
     console.log(translation)
     console.log('yMax:' + 100*scale, 'xMax:' + 100*scale, 'yMin:' + 100*scale, 'xMin:' + -6000*scale)
     return (
+      <div>
+        <Popup trigger={<button className="button"> Open Modal </button>} modal>
+    {close => (
+      <div className="modal">
+        <a className="close" onClick={close}>
+          &times;
+        </a>
+        <div className="header"> Modal Title </div>
+        <div className="content">
+          {" "}
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, a nostrum.
+          Dolorem, repellat quidem ut, minima sint vel eveniet quibusdam voluptates
+          delectus doloremque, explicabo tempore dicta adipisci fugit amet dignissimos?
+          <br />
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur sit
+          commodi beatae optio voluptatum sed eius cumque, delectus saepe repudiandae
+          explicabo nemo nam libero ad, doloribus, voluptas rem alias. Vitae?
+        </div>
+        <div className="actions">
+          <Popup
+            trigger={<button className="button"> Trigger </button>}
+            position="top center"
+            closeOnDocumentClick
+          >
+            <span>
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae
+              magni omnis delectus nemo, maxime molestiae dolorem numquam
+              mollitia, voluptate ea, accusamus excepturi deleniti ratione
+              sapiente! Laudantium, aperiam doloribus. Odit, aut.
+            </span>
+          </Popup>
+          <button
+            className="button"
+            onClick={() => {
+              console.log("modal closed ");
+              close();
+            }}
+          >
+            close modal
+          </button>
+        </div>
+      </div>
+    )}
+  </Popup>
       <MapInteractionCSS
         scale={scale}
         translation={translation}
@@ -136,11 +159,13 @@ class Main extends React.Component {
       >
         <div className='Main' style={{width: width}}>
           <div className='Level1'>
+            
             {this.peopleLvl1(this.state.allData)}
           </div> 
           {this.trombinoscope()}
         </div>
       </MapInteractionCSS>
+      </div>
     )
   }
 
