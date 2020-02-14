@@ -8,7 +8,6 @@ class People extends React.Component {
 
     }
 
-
     render() {
         console.log('test')
         return (
