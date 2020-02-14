@@ -8,10 +8,11 @@ class People extends React.Component {
 
     }
 
-    render() {
 
-        return  (
-            <div className={`${this.props.services.service === 'Manager' ? 'manager' : ''} people`}>
+    render() {
+        console.log('test')
+        return (
+            <div onClick={() => this.props.onClickPeople(this.props.services)} className={`${this.props.services.service === 'Manager' ? 'manager' : ''} people`}>
                 <div className='profilPictureContainer'>
                     <img src={maxime}/>
                 </div>

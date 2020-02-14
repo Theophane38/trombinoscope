@@ -1,0 +1,15 @@
+.details {
+    background-color: white;
+    width: 1500px;
+    padding: 80px;
+    margin: 50px;
+    font-size: 100px;
+}
+
+.headerDetails {
+    text-align: center;
+}
+
+.picture {
+    float: left;
+}

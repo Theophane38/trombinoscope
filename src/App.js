@@ -5,6 +5,8 @@ import './App.css';
 import { MapInteractionCSS } from 'react-map-interaction';
 import People from './components/People.js'
 import Popup from "reactjs-popup";
+import DetailsPeople from './components/DetailsPeople.js';
+
 
 
 class Main extends React.Component {
@@ -18,6 +20,7 @@ class Main extends React.Component {
       allData: people,
       allServices: this.getServices(people)
     }
+    this.onClickPeople = this.onClickPeople.bind(this)
   }
 
   getServices(data) {
@@ -32,6 +35,7 @@ class Main extends React.Component {
           lastname: data[i].lastname,
           level: data[i].level,
           location: data[i].location,
+          service: data[i].service
         })
       }
     }
@@ -43,7 +47,7 @@ class Main extends React.Component {
     for (let i = 0; i < data.length; i++) {
       if (data[i].level === 1) {
         tabLvl1.push (
-          <People services={data[i]} />
+          <People onClickPeople={this.onClickPeople} services={data[i]} />
         )
       }
     }
@@ -59,11 +63,11 @@ class Main extends React.Component {
       for (let j = 0; j < services[i].length; j++){
         if (services[i][j].level === 2){
           peopleLevel2.push(
-            <People services={services[i][j]} />
+            <People onClickPeople={this.onClickPeople} services={services[i][j]} />
           )
         } else if (services[i][j].level === 3){
           peopleLevel3.push(
-            <People services={services[i][j]} />
+            <People onClickPeople={this.onClickPeople} services={services[i][j]} />
           )
         }
       }
@@ -95,6 +99,13 @@ class Main extends React.Component {
     return size;
   }
 
+  onClickPeople(value) {
+   this.setState({
+     isDetailPeopleExists: true,
+     detailsCurrentPeople: value
+   })
+  }
+
 
   render() {
     const { scale, translation } = this.state;
@@ -104,67 +115,30 @@ class Main extends React.Component {
     console.log(scale)
     console.log(translation)
     console.log('yMax:' + 100*scale, 'xMax:' + 100*scale, 'yMin:' + 100*scale, 'xMin:' + -6000*scale)
+    let detailPeople = []
+    if (this.state.isDetailPeopleExists){
+      detailPeople =  <DetailsPeople value={this.state.detailsCurrentPeople} />
+    } else {
+      
+    }
     return (
       <div>
-        <Popup trigger={<button className="button"> Open Modal </button>} modal>
-    {close => (
-      <div className="modal">
-        <a className="close" onClick={close}>
-          &times;
-        </a>
-        <div className="header"> Modal Title </div>
-        <div className="content">
-          {" "}
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, a nostrum.
-          Dolorem, repellat quidem ut, minima sint vel eveniet quibusdam voluptates
-          delectus doloremque, explicabo tempore dicta adipisci fugit amet dignissimos?
-          <br />
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur sit
-          commodi beatae optio voluptatum sed eius cumque, delectus saepe repudiandae
-          explicabo nemo nam libero ad, doloribus, voluptas rem alias. Vitae?
-        </div>
-        <div className="actions">
-          <Popup
-            trigger={<button className="button"> Trigger </button>}
-            position="top center"
-            closeOnDocumentClick
-          >
-            <span>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae
-              magni omnis delectus nemo, maxime molestiae dolorem numquam
-              mollitia, voluptate ea, accusamus excepturi deleniti ratione
-              sapiente! Laudantium, aperiam doloribus. Odit, aut.
-            </span>
-          </Popup>
-          <button
-            className="button"
-            onClick={() => {
-              console.log("modal closed ");
-              close();
-            }}
-          >
-            close modal
-          </button>
-        </div>
-      </div>
-    )}
-  </Popup>
-      <MapInteractionCSS
-        scale={scale}
-        translation={translation}
-        minScale={0.2}
-        maxScale={1.2}
-        translationBounds={({yMax: 100*scale, xMax: 100*scale, yMin:100*scale, xMin: -5800*scale})}
-        onChange={({ scale, translation }) => this.setState({ scale, translation })}
-      >
-        <div className='Main' style={{width: width}}>
-          <div className='Level1'>
-            
-            {this.peopleLvl1(this.state.allData)}
-          </div> 
-          {this.trombinoscope()}
-        </div>
-      </MapInteractionCSS>
+        <MapInteractionCSS
+          scale={scale}
+          translation={translation}
+          minScale={0.2}
+          maxScale={1.2}
+          onChange={({ scale, translation }) => this.setState({ scale, translation })}
+        >
+          <div className='Main' style={{width: width}}>
+            <div className='Level1'>
+              
+              {this.peopleLvl1(this.state.allData)}
+            </div> 
+            {this.trombinoscope()}
+            {detailPeople}
+          </div>
+        </MapInteractionCSS>
       </div>
     )
   }
