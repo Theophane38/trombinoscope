@@ -58,33 +58,9 @@ class Main extends React.Component {
     let services = this.state.allServices
     let tabTrombino = []
     for (let i in services){
-      let peopleLevel2 = []
-      let peopleLevel3 = []
-      for (let j = 0; j < services[i].length; j++){
-        if (services[i][j].level === 2){
-          peopleLevel2.push(
-            <People onClickPeople={this.onClickPeople} services={services[i][j]} />
-          )
-        } else if (services[i][j].level === 3){
-          peopleLevel3.push(
-            <People onClickPeople={this.onClickPeople} services={services[i][j]} />
-          )
-        }
-      }
-      peopleLevel3.push(
-        <div className= 'addPeople'>
-          +
-        </div>
-      )
       tabTrombino.push(
-        <div className={i + ' serviceContainer'}>
+        <div className={i + ' serviceContainer'} onClick={() => this.onClickService(services[i], i)}>
           <h2>{i}</h2>
-          <div className='level2'>
-            {peopleLevel2}
-          </div>
-          <div className='level3'>
-            {peopleLevel3}
-          </div>
         </div>
       )
     }
@@ -105,6 +81,36 @@ class Main extends React.Component {
      detailsCurrentPeople: value
    })
   }
+
+  onClickService(service, name) {
+    let tabPeople = []
+    let peopleLevel2 = []
+    let peopleLevel3 = []
+    for (let j = 0; j < service.length; j++){
+      if (service[j].level === 2){
+        peopleLevel2.push(
+          <People onClickPeople={this.onClickPeople} services={service[j]} />
+        )
+      } else if (service[j].level === 3){
+        peopleLevel3.push(
+          <People onClickPeople={this.onClickPeople} services={service[j]} />
+        )
+      }
+    }
+    tabPeople.push(
+      <div className={name + 'people'}>
+        <div className='level2'>
+          {peopleLevel2}
+        </div>
+        <div className='level3'>
+          {peopleLevel3}
+        </div>
+      </div>
+    )
+    this.setState({
+      peopleInService : tabPeople,
+    }) 
+  } 
 
 
   render() {
@@ -132,11 +138,11 @@ class Main extends React.Component {
         >
           <div className='Main' style={{width: width}}>
             <div className='Level1'>
-              
               {this.peopleLvl1(this.state.allData)}
             </div> 
             {this.trombinoscope()}
             {detailPeople}
+            {this.state.peopleInService}
           </div>
         </MapInteractionCSS>
       </div>
